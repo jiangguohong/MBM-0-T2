@@ -1,0 +1,62 @@
+name: Measurement Report
+description: Submit a third-party MBM-0 measurement report (log-recomputable, black-box)
+title: "Measurement Report: <system codename>"
+labels: ["measurement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        MBM-0 is a black-box protocol: every field below must be independently
+        recomputable from logs. No source code or mechanism disclosure is
+        required or requested. See `protocol/` for definitions.
+  - type: input
+    id: system_codename
+    attributes:
+      label: System codename (anonymized)
+      description: Codename for the memory system under test
+      placeholder: "e.g. SYS-X"
+    validations:
+      required: true
+  - type: input
+    id: measurement_version
+    attributes:
+      label: MBM-0 version applied
+      description: Which protocol version the measurement follows
+      placeholder: "v0 Rev.A"
+    validations:
+      required: true
+  - type: textarea
+    id: metrics
+    attributes:
+      label: Metric values (MBR / MSUR / BIR; ACT / XRE / NCS optional)
+      description: |
+        One metric per line, with window and unit. Example:
+        MBR = 2 events / week 1
+        MSUR(30d) = 1/2 nodes active (T=30d, labeled)
+        BIR = 1/4 retrievals (self-reported + log corroboration)
+    validations:
+      required: true
+  - type: textarea
+    id: log_chain
+    attributes:
+      label: Log-chain description for reported Birth Events
+      description: |
+        For each reported Birth Event: birth timestamp (recomputable),
+        trigger type (behavioral layer only), independent retrieval count,
+        behavior-change instance form. Mechanism fields: undisclosed.
+    validations:
+      required: true
+  - type: input
+    id: contact
+    attributes:
+      label: Contact (email or public profile)
+      placeholder: "you@example.com"
+    validations:
+      required: false
+  - type: checkboxes
+    id: redline
+    attributes:
+      label: Redline confirmation
+      options:
+        - label: I confirm this report contains no implementation mechanism details (black-box, behavior layer only)
+          required: true
